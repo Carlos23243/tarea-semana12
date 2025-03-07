@@ -1,0 +1,14 @@
+import numpy as np
+ciudades = ["Quito", "Guyaquil", "Anbato"]
+dias_semana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
+semanas = 4
+np.random.seed(42)
+temperaturas = np.random.randint(15, 35, (len(ciudades), len(dias_semana), semanas))
+promedios_semanales = np.zeros((len(ciudades), semanas))
+for i in range(len(ciudades)):
+    for k in range(semanas):
+        promedios_semanales[i, k] = np.mean(temperaturas[i, :, k])
+for i, ciudad in enumerate(ciudades):
+    print(f"\nPromedio de temperaturas semanales para {ciudad}:")
+    for k in range(semanas):
+        print(f"  Semana {k + 1}: {promedios_semanales[i, k]:.2f} °C")
