@@ -1,14 +1,37 @@
 import numpy as np
+
+def calcular_temperatura_promedio(datos_temperaturas):
+
+ promedios = {}
+     for ciudad, temperaturas in datos_temperaturas.items():
+        total_temperaturas = sum(sum(semana) for semana in temperaturas)
+        total_dias = sum(len(semana) for semana in temperaturas)
+        promedios[ciudad] = total_temperaturas / total_dias if total_dias else 0
+
+    return promedios
+
+import numpy as np
 ciudades = ["Quito", "Guyaquil", "Anbato"]
 dias_semana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
 semanas = 4
 np.random.seed(42)
 temperaturas = np.random.randint(15, 35, (len(ciudades), len(dias_semana), semanas))
+
 promedios_semanales = np.zeros((len(ciudades), semanas))
 for i in range(len(ciudades)):
     for k in range(semanas):
         promedios_semanales[i, k] = np.mean(temperaturas[i, :, k])
+
 for i, ciudad in enumerate(ciudades):
     print(f"\nPromedio de temperaturas semanales para {ciudad}:")
     for k in range(semanas):
         print(f"  Semana {k + 1}: {promedios_semanales[i, k]:.2f} °C")
+
+        datos_temperaturas = {
+    "Ciudad A": [[30, 32, 31, 29, 28, 30, 31], [29, 30, 31, 32, 33, 31, 30], [28, 29, 30, 31, 32, 33, 34], [30, 31, 32, 33, 34, 32, 31]],
+    "Ciudad B": [[20, 22, 21, 19, 18, 20, 21], [19, 20, 21, 22, 23, 21, 20], [18, 19, 20, 21, 22, 23, 24], [20, 21, 22, 23, 24, 22, 21]],
+    "Ciudad C": [[25, 27, 26, 24, 23, 25, 26], [24, 25, 26, 27, 28, 26, 25], [23, 24, 25, 26, 27, 28, 29], [25, 26, 27, 28, 29, 27, 26]]
+}
+
+promedios = calcular_temperatura_promedio(datos_temperaturas)
+print(promedios)
